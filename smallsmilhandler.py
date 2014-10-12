@@ -74,3 +74,4 @@ if __name__ == "__main__":
     parser.parse(open('karaoke.smil'))
 
 
+
