@@ -11,10 +11,10 @@ class SmallSMILHandler(ContentHandler):
     def __init__ (self):
 
         self.root-layout = {'w':'', 'h':'', 'bc':''}
-        self.region = []
-        self.img = []
-        self.audio = []
-        self.textstream = []
+        self.region = {'id':'', 'top':'', 'bottom':'', 'left':'', 'right':''}
+        self.img = {'src':'', 'region':'', 'begin':'', 'dur':''}
+        self.audio = {'src':'', 'begin':'', 'dur':''}
+        self.textstream = {'src':'', 'region':''}
 
     def startElement(self, name, attrs):
         
