@@ -3,9 +3,29 @@
 
 import smallsmilhandler
 import sys
+import os
 from xml.sax import make_parser
 
 com = sys.argv
+
+def download_items(tags):
+    for tag in tags:
+        atts = tag[1]
+        for att in atts:
+            if atts[att][0:7] == "http://":
+                os.system("wget -q " + atts[att])
+                #campo = atts[att].split
+
+def print_tags(tags):
+    for tag in tags:
+        name = tag[0]
+        print name,
+
+        atts = tag[1]
+        for att in atts:
+            if atts[att] != "":
+                print "\t" + att + '="' + atts[att] + '"',
+        print
 
 if len(com) == 2:
 
@@ -19,9 +39,10 @@ if len(com) == 2:
     except IOError:
         print "Error: Document not found"
 
-    def print_tags
-        tags = sHandler.get_tags()
-        print tags
+    tags = sHandler.get_tags()
+
+    download_items(tags)
+    print_tags(tags)
 
 else:
     print "Usage: python karaoke.py file.smil"

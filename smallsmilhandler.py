@@ -9,57 +9,56 @@ class SmallSMILHandler(ContentHandler):
 
     def __init__ (self):
 
-        # Todo son string. Considerar inicializar con int (0) cuando proceda
-        self.rootlayout = {'w':'', 'h':'', 'bc':''}
-        self.region = {'id':'', 'top':'', 'bottom':'', 'left':'', 'right':''}
-        self.img = {'src':'', 'region':'', 'begin':'', 'dur':''}
-        self.audio = {'src':'', 'begin':'', 'dur':''}
-        self.textstream = {'src':'', 'region':''}
         self.tags = []
 
     def startElement(self, name, attrs):
         
         if name == 'root-layout':
             # De esta manera tomamos los valores de los atributos
-            self.rootlayout['w'] = attrs.get('width',"")
-            self.rootlayout['h'] = attrs.get('height',"")
-            self.rootlayout['bc'] = attrs.get('background-color',"")
+            rootlayout = {}
+            rootlayout['width'] = attrs.get('width',"")
+            rootlayout['height'] = attrs.get('height',"")
+            rootlayout['background-color'] = attrs.get('background-color',"")
 
-            self.tags.append(self.rootlayout)
+            self.tags.append(["root-layout", rootlayout])
 
         elif name == 'region':
-            # No sé si funciona cuando no están todos los atributos
-            self.region['id'] = attrs.get('id',"")
-            self.region['top'] = attrs.get('top',"")
-            self.region['bottom'] = attrs.get('bottom',"")
-            self.region['left'] = attrs.get('left',"")
-            self.region['right'] = attrs.get('right',"")
 
-            self.tags.append(self.region)
+            region = {}
+            region['id'] = attrs.get('id',"")
+            region['top'] = attrs.get('top',"")
+            region['bottom'] = attrs.get('bottom',"")
+            region['left'] = attrs.get('left',"")
+            region['right'] = attrs.get('right',"")
+
+            self.tags.append(["region", region])
 
         elif name == 'img':
-            # No sé si funciona cuando no están todos los atributos
-            self.img['src'] = attrs.get('src',"")
-            self.img['region'] = attrs.get('region',"")
-            self.img['begin'] = attrs.get('begin',"")
-            self.img['dur'] = attrs.get('dur',"")
 
-            self.tags.append(self.img)
+            img = {}
+            img['src'] = attrs.get('src',"")
+            img['region'] = attrs.get('region',"")
+            img['begin'] = attrs.get('begin',"")
+            img['dur'] = attrs.get('dur',"")
+
+            self.tags.append(["img", img])
 
         elif name == 'audio':
-            # No sé si funciona cuando no están todos los atributos
-            self.audio['src'] = attrs.get('src',"")
-            self.audio['begin'] = attrs.get('begin',"")
-            self.audio['dur'] = attrs.get('dur',"")
 
-            self.tags.append(self.audio)
+            audio = {}
+            audio['src'] = attrs.get('src',"")
+            audio['begin'] = attrs.get('begin',"")
+            audio['dur'] = attrs.get('dur',"")
+
+            self.tags.append(["audio", audio])
 
         elif name == 'textstream':
-            # No sé si funciona cuando no están todos los atributos
-            self.textstream['src'] = attrs.get('src',"")
-            self.textstream['region'] = attrs.get('region',"")
 
-            self.tags.append(self.textstream)
+            textstream = {}
+            textstream['src'] = attrs.get('src',"")
+            textstream['region'] = attrs.get('region',"")
+
+            self.tags.append(["textstream", textstream])
 
     def get_tags(self):
         return self.tags
