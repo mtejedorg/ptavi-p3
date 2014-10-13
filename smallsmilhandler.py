@@ -64,15 +64,10 @@ class SmallSMILHandler(ContentHandler):
         return self.tags
 
 if __name__ == "__main__":
-    """
-    Programa principal
-    """
+
     parser = make_parser()
     sHandler = SmallSMILHandler()
     parser.setContentHandler(sHandler)
     parser.parse(open('karaoke.smil'))
 
     print sHandler.get_tags()
-
-
-

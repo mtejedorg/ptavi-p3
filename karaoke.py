@@ -6,6 +6,7 @@ import sys
 import os
 from xml.sax import make_parser
 
+
 class KaraokeLocal():
 
     def __init__(self, fich):
