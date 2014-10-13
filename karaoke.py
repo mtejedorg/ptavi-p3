@@ -19,10 +19,9 @@ if len(com) == 2:
     except IOError:
         print "Error: Document not found"
 
-    tags = sHandler.get_tags()
-    print tags
+    def print_tags
+        tags = sHandler.get_tags()
+        print tags
 
-
- 
 else:
     print "Usage: python karaoke.py file.smil"
