@@ -14,7 +14,8 @@ def download_items(tags):
         for att in atts:
             if atts[att][0:7] == "http://":
                 os.system("wget -q " + atts[att])
-                #campo = atts[att].split
+                campos = atts[att].split('/')
+                atts[att] = campos[len(campos)-1]
 
 def print_tags(tags):
     for tag in tags:
