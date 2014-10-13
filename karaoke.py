@@ -2,23 +2,27 @@
 # -*- coding: iso-8859-15 -*-
 
 import smallsmilhandler
+import sys
+from xml.sax import make_parser
 
 com = sys.argv
 
 if len(com) == 2:
 
     parser = make_parser()
-    sHandler = SmallSMILHandler()
+    sHandler = smallsmilhandler.SmallSMILHandler()
     parser.setContentHandler(sHandler)
+
     try:
         parser.parse(open(com[1]))
 
-    tags = sHandler.get_tags()
-    
-    print tags
-
     except IOError:
         print "Error: Document not found"
+
+    tags = sHandler.get_tags()
+    print tags
+
+
  
 else:
     print "Usage: python karaoke.py file.smil"

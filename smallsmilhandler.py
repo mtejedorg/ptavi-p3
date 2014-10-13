@@ -73,5 +73,7 @@ if __name__ == "__main__":
     parser.setContentHandler(sHandler)
     parser.parse(open('karaoke.smil'))
 
+    print sHandler.get_tags()
+
 
 
