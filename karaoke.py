@@ -8,42 +8,53 @@ from xml.sax import make_parser
 
 com = sys.argv
 
-def download_items(tags):
-    for tag in tags:
-        atts = tag[1]
-        for att in atts:
-            if atts[att][0:7] == "http://":
-                os.system("wget -q " + atts[att])
-                campos = atts[att].split('/')
-                atts[att] = campos[len(campos)-1]
+class KaraokeLocal():
 
-def print_tags(tags):
-    for tag in tags:
-        name = tag[0]
-        print name,
+    def __init__ (self, fich):
+        parser = make_parser()
+        sHandler = smallsmilhandler.SmallSMILHandler()
+        parser.setContentHandler(sHandler)
 
-        atts = tag[1]
-        for att in atts:
-            if atts[att] != "":
-                print "\t" + att + '="' + atts[att] + '"',
-        print
+        try:
+            parser.parse(open(fich))
 
-if len(com) == 2:
+        except IOError:
+            print "Error: Document not found"
 
-    parser = make_parser()
-    sHandler = smallsmilhandler.SmallSMILHandler()
-    parser.setContentHandler(sHandler)
+        self.tags = sHandler.get_tags()
 
-    try:
-        parser.parse(open(com[1]))
+    def __str__ (self):
+        strimp = ""
+        for tag in self.tags:
+            name = tag[0]
+            strimp += name
 
-    except IOError:
-        print "Error: Document not found"
+            atts = tag[1]
+            for att in atts:
+                if atts[att] != "":
+                    strimp += "\t" + att + '="' + atts[att] + '"'
+            strimp += "\n"
 
-    tags = sHandler.get_tags()
+        return strimp
 
-    download_items(tags)
-    print_tags(tags)
+    def do_local (self):
+        for tag in self.tags:
+            atts = tag[1]
+            for att in atts:
+                if atts[att][0:7] == "http://":
+                    os.system("wget -q " + atts[att])
+                    campos = atts[att].split('/')
+                    atts[att] = campos[-1]
 
-else:
-    print "Usage: python karaoke.py file.smil"
+
+if __name__ == "__main__":
+
+    if len(com) == 2:
+
+        Kar = KaraokeLocal(com[1])
+        print Kar
+        Kar.do_local()
+        print Kar
+
+    else:
+        print "Usage: python karaoke.py file.smil"
