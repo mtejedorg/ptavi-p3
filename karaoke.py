@@ -8,7 +8,7 @@ from xml.sax import make_parser
 
 class KaraokeLocal():
 
-    def __init__ (self, fich):
+    def __init__(self, fich):
         parser = make_parser()
         sHandler = smallsmilhandler.SmallSMILHandler()
         parser.setContentHandler(sHandler)
@@ -19,7 +19,7 @@ class KaraokeLocal():
 
         self.tags = sHandler.get_tags()
 
-    def __str__ (self):
+    def __str__(self):
         strimp = ""
         for tag in self.tags:
             name = tag[0]
@@ -31,7 +31,7 @@ class KaraokeLocal():
             strimp += "\n"
         return strimp
 
-    def do_local (self):
+    def do_local(self):
         for tag in self.tags:
             atts = tag[1]
             for att in atts:
